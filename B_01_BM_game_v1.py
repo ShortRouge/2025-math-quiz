@@ -20,8 +20,8 @@ def instructions():
     """print instructions"""
 
     print("""
-pick the number of rounds
-then answer the questions
+pick the number of rounds, there are three questions per round
+then answer the questions it will show if it is right or wrong
     """)
 
 # check for an integer more than 0 (allows <enter>)
@@ -31,10 +31,6 @@ def int_check(question):
         error = "please enter an integer that is 1 or more"
 
         to_check = input(question)
-
-        # check for infinite mode
-        if to_check == "":
-            return "infinite"
 
         try:
             response = int(to_check)
@@ -63,22 +59,20 @@ if want_instructions == "yes":
 
 rounds_played = 0
 rounds_won = 0
+questions_right = 0
 rounds_loss = 0
 question = 0
 game_history = []
 mode = "regular"
 
 # ask user for number of rounds / infinite mode
-num_rounds = int_check("how many rounds would you like? push <enter> for infinite: ")
-
-if num_rounds == "infinite":
-    mode = "infinite"
-    num_rounds = 5
+num_rounds = int_check("how many rounds would you like?")
 
 
 # game loop starts here
 while rounds_played < num_rounds:
 
+    # this code randomizes the questions so their different every time
     num1 = random.randint(1, 10)
     num2 = random.randint(1, 10)
     num3 = random.randint(1, 10)
@@ -88,56 +82,65 @@ while rounds_played < num_rounds:
 
 
 
-    # round headings
-    if mode == "infinite":
-        rounds_heading = f"\n♾️♾️♾️ round {rounds_played + 1} (infinite mode) ♾️♾️♾️"
-    else:
-        rounds_heading = f"\n💿💿💿 round {rounds_played + 1} of {num_rounds}💿💿💿"
+    # the rounds heading showing number of rounds played and rounds left
+    rounds_heading = f"\n💿💿💿 round {rounds_played + 1} of {num_rounds}💿💿💿"
 
     print(rounds_heading)
     print()
 
-
+    # asks questions for multiplication and says if answer given by user is right or wrong
     question += 1
     user_choice = int_check(f"what does {num1} x {num2} = ")
     answer2 = num1 * num2
     if user_choice == answer2:
         print("✅✅you got it right✅✅")
-        rounds_won =+ 1
+        rounds_won += 1
+        questions_right += 1
     else:
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
+    # asks questions for addition and says if answer given by user is right or wrong
     question += 1
     user_choice = int_check(f"what does {num3} + {num4} = ")
     answer3 = num3 + num4
     if user_choice == answer3:
         print("✅✅you got it right✅✅")
         rounds_won += 1
+        questions_right += 1
     else:
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
+    # asks questions for subtraction and says if answer given by user is right or wrong
     question += 1
     user_choice = int_check(f"what does {num5} - {num6} = ")
-    answer4 = num3 - num4
+    answer4 = num5 - num6
     if user_choice == answer4:
         print("✅✅you got it right✅✅")
         rounds_won += 1
+        questions_right += 1
     else:
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
-
+    # shows the user how much they got right
     print("round history")
-    print(f"you got {rounds_won} / {question}")
+    print(f"you got {questions_right} / {question} right")
+
+    # reset the round history every round
+    if question == 3:
+        question = 0
+        questions_right = 0
 
     rounds_played += 1
 
+# ask user if they want game history and if yes shows the game history
 game_history = yes_no("Do you want your game history")
 if game_history == "yes":
     print("")
     print("game history")
-    print(f"rounds Loss: {rounds_loss}")
-    print(f"rounds won: {rounds_won}")
+    print(f"you played {rounds_played} rounds")
+    print(f"you got {rounds_loss} questions wrong")
+    print(f"you got {rounds_won} questions right")
 
