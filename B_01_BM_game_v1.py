@@ -1,5 +1,6 @@
 import random
 
+
 def yes_no(question):
     """check user response to a question is yes / no (y/n), return 'yes' or 'no' """
 
@@ -93,10 +94,11 @@ while rounds_played < num_rounds:
     user_choice = int_check(f"what does {num1} x {num2} = ")
     answer2 = num1 * num2
     if user_choice == answer2:
+        answer2 = "right"
         print("✅✅you got it right✅✅")
         rounds_won += 1
-        questions_right += 1
     else:
+        answer2 = "wrong"
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
@@ -105,10 +107,11 @@ while rounds_played < num_rounds:
     user_choice = int_check(f"what does {num3} + {num4} = ")
     answer3 = num3 + num4
     if user_choice == answer3:
+        answer3 = "right"
         print("✅✅you got it right✅✅")
         rounds_won += 1
-        questions_right += 1
     else:
+        answer3 = "wrong"
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
@@ -117,30 +120,29 @@ while rounds_played < num_rounds:
     user_choice = int_check(f"what does {num5} - {num6} = ")
     answer4 = num5 - num6
     if user_choice == answer4:
+        answer4 = "right"
         print("✅✅you got it right✅✅")
         rounds_won += 1
-        questions_right += 1
     else:
+        answer4 = "wrong"
         print("❌❌you got it wrong❌❌")
         rounds_loss += 1
 
     # shows the user how much they got right
     print("round history")
-    print(f"you got {questions_right} / {question} right")
 
-    # reset the round history every round
-    if question == 3:
-        question = 0
-        questions_right = 0
+    feedback = answer2, answer3, answer4
+    print(feedback)
+
+    history_item = f"Round {rounds_played}: {feedback}"
+
+    game_history.append(history_item)
 
     rounds_played += 1
 
-# ask user if they want game history and if yes shows the game history
-game_history = yes_no("Do you want your game history")
-if game_history == "yes":
-    print("")
-    print("game history")
-    print(f"you played {rounds_played} rounds")
-    print(f"you got {rounds_loss} questions wrong")
-    print(f"you got {rounds_won} questions right")
+# loop ends here
+print()
+print("### game history ###")
 
+for item in game_history:
+    print(item)
