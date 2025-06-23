@@ -134,7 +134,7 @@ while rounds_played < num_rounds:
     feedback = answer2, answer3, answer4
     print(feedback)
 
-    history_item = f"Round {rounds_played}: {feedback}"
+    history_item = f"Round {rounds_played + 1}: {feedback}"
 
     game_history.append(history_item)
 

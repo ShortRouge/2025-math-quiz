@@ -64,3 +64,17 @@ while rounds_played < num_questions:
             print("✅✅you got it right✅✅")
         else:
             print("❌❌you got it wrong❌❌")
+
+# ask user if they want game history and if yes shows the game history
+game_history = yes_no("Do you want your game history")
+if game_history == "yes":
+    print("")
+    print("game history")
+    print(f"you played {rounds_played} rounds")
+    print(f"you got {rounds_loss} questions wrong")
+    print(f"you got {rounds_won} questions right")
+
+    # reset the round history every round
+    if question == 3:
+        question = 0
+        questions_right = 0
